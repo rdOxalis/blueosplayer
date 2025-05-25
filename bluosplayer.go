@@ -34,18 +34,18 @@ var currentLanguage = LangEnglish
 // Localization texts
 var texts = map[Language]map[string]string{
 	LangEnglish: {
-		"title":                   "🎵 BlueOS Controller",
-		"scanning":                "🔍 Scanning network for BlueOS players...",
+		"title":                   "🎵 BluOS Controller",
+		"scanning":                "🔍 Scanning network for BluOS players...",
 		"scanning_network":        "   Scanning network: %s",
 		"found_player":            "   ✅ Found: %s (%s) at %s",
-		"no_players":              "no BlueOS players found",
+		"no_players":              "no BluOS players found",
 		"could_not_determine_ip":  "could not determine local IP: %w",
 		"available_players":       "📱 Available Players:",
 		"select_player":           "Select a player (1-%d): ",
 		"invalid_selection":       "❌ Invalid selection",
 		"connected_to":            "✅ Connected to: %s (%s)",
 		"error_selecting_player":  "Error selecting player: %v",
-		"interactive_mode":        "🎵 BlueOS Controller - Interactive Mode",
+		"interactive_mode":        "🎵 BluOS Controller - Interactive Mode",
 		"separator":               "=======================================",
 		"status_volume":           "📊 Status: %s | Volume: %d%%",
 		"error_retrieving_status": "❌ Error retrieving status: %v",
@@ -65,7 +65,7 @@ var texts = map[Language]map[string]string{
 		"cmd_help":                "  help              - Show this help",
 		"cmd_lang":                "  lang <en|de|sw>   - Change language",
 		"cmd_quit":                "  quit / exit       - Exit program",
-		"prompt":                  "Blueos> ",
+		"prompt":                  "BluOS> ",
 		"invalid_preset_id":       "❌ Invalid preset ID",
 		"error_playing_preset":    "❌ Error playing preset: %v",
 		"playing_preset":          "✅ Playing preset %d",
@@ -89,18 +89,18 @@ var texts = map[Language]map[string]string{
 		"unknown_command":         "❌ Unknown command: %s (Type 'help' for help)",
 	},
 	LangGerman: {
-		"title":                   "🎵 BlueOS Controller",
-		"scanning":                "🔍 Suche nach BlueOS Playern im Netzwerk...",
+		"title":                   "🎵 BluOS Controller",
+		"scanning":                "🔍 Suche nach BluOS Playern im Netzwerk...",
 		"scanning_network":        "   Scanne Netzwerk: %s",
 		"found_player":            "   ✅ Gefunden: %s (%s) auf %s",
-		"no_players":              "keine BlueOS Player gefunden",
+		"no_players":              "keine BluOS Player gefunden",
 		"could_not_determine_ip":  "konnte lokale IP nicht ermitteln: %w",
 		"available_players":       "📱 Verfügbare Player:",
 		"select_player":           "Wähle einen Player (1-%d): ",
 		"invalid_selection":       "❌ Ungültige Auswahl",
 		"connected_to":            "✅ Verbunden mit: %s (%s)",
 		"error_selecting_player":  "Fehler bei der Player-Auswahl: %v",
-		"interactive_mode":        "🎵 BlueOS Controller - Interaktiver Modus",
+		"interactive_mode":        "🎵 BluOS Controller - Interaktiver Modus",
 		"separator":               "==========================================",
 		"status_volume":           "📊 Status: %s | Lautstärke: %d%%",
 		"error_retrieving_status": "❌ Fehler beim Abrufen des Status: %v",
@@ -120,7 +120,7 @@ var texts = map[Language]map[string]string{
 		"cmd_help":                "  help              - Diese Hilfe anzeigen",
 		"cmd_lang":                "  lang <en|de|sw>   - Sprache ändern",
 		"cmd_quit":                "  quit / exit       - Programm beenden",
-		"prompt":                  "Blueos> ",
+		"prompt":                  "BluOS> ",
 		"invalid_preset_id":       "❌ Ungültige Preset-ID",
 		"error_playing_preset":    "❌ Fehler beim Abspielen: %v",
 		"playing_preset":          "✅ Preset %d wird abgespielt",
@@ -144,18 +144,18 @@ var texts = map[Language]map[string]string{
 		"unknown_command":         "❌ Unbekannter Befehl: %s (Tippe 'help' für Hilfe)",
 	},
 	LangSwahili: {
-		"title":                   "🎵 Kidhibiti cha BlueOS",
-		"scanning":                "🔍 Kutafuta vichezaji vya BlueOS kwenye mtandao...",
+		"title":                   "🎵 Kidhibiti cha BluOS",
+		"scanning":                "🔍 Kutafuta vichezaji vya BluOS kwenye mtandao...",
 		"scanning_network":        "   Kutafuta mtandao: %s",
 		"found_player":            "   ✅ Kumepatikana: %s (%s) kwa %s",
-		"no_players":              "hakuna vichezaji vya BlueOS vilivopatikana",
+		"no_players":              "hakuna vichezaji vya BluOS vilivopatikana",
 		"could_not_determine_ip":  "haikuweza kutambua IP ya ndani: %w",
 		"available_players":       "📱 Vichezaji Vinavyopatikana:",
 		"select_player":           "Chagua kichezaji (1-%d): ",
 		"invalid_selection":       "❌ Chaguo batili",
 		"connected_to":            "✅ Imeunganishwa na: %s (%s)",
 		"error_selecting_player":  "Hitilafu katika kuchagua kichezaji: %v",
-		"interactive_mode":        "🎵 Kidhibiti cha BlueOS - Hali ya Maingiliano",
+		"interactive_mode":        "🎵 Kidhibiti cha BluOS - Hali ya Maingiliano",
 		"separator":               "===========================================",
 		"status_volume":           "📊 Hali: %s | Sauti: %d%%",
 		"error_retrieving_status": "❌ Hitilafu katika kupata hali: %v",
@@ -175,7 +175,7 @@ var texts = map[Language]map[string]string{
 		"cmd_help":                "  help              - Onyesha msaada huu",
 		"cmd_lang":                "  lang <en|de|sw>   - Badilisha lugha",
 		"cmd_quit":                "  quit / exit       - Toka kwenye programu",
-		"prompt":                  "Blueos> ",
+		"prompt":                  "BluOS> ",
 		"invalid_preset_id":       "❌ Kitambulisho cha mpangilio si halali",
 		"error_playing_preset":    "❌ Hitilafu katika kucheza mpangilio: %v",
 		"playing_preset":          "✅ Kucheza mpangilio %d",
@@ -288,7 +288,7 @@ func scanForPlayers() ([]PlayerInfo, error) {
 		go func(ip string) {
 			defer wg.Done()
 
-			if player, found := checkForBlueOSPlayer(ip); found {
+			if player, found := checkForBluOSPlayer(ip); found {
 				mu.Lock()
 				players = append(players, player)
 				mu.Unlock()
@@ -317,7 +317,7 @@ func getSubnet(ip string) string {
 	return strings.Join(parts[:3], ".")
 }
 
-func checkForBlueOSPlayer(ip string) (PlayerInfo, bool) {
+func checkForBluOSPlayer(ip string) (PlayerInfo, bool) {
 	client := &http.Client{Timeout: ScanTimeout}
 	url := fmt.Sprintf("http://%s:%s/SyncStatus", ip, BluesoundPort)
 

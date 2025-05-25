@@ -1,10 +1,10 @@
-# 🎵 BlueOS Player
+# 🎵 BluOS Player for Bluesound Devices
 
-A powerful BlueOS preset player for the command line with multi-language support and automatic network scanning.
+A BluOS preset player for the command line with multi-language support and automatic network scanning.
 
 ## ✨ Features
 
-- 🔍 **Automatic Network Scanning** - Finds all BlueOS players on your network
+- 🔍 **Automatic Network Scanning** - Finds all BluOS players on your network
 - 🌍 **Multi-Language Support** - English, German, and Swahili
 - 🎮 **Interactive Control** - Simple command-line interface
 - 📱 **Multiple Player Support** - Choose from detected players
@@ -15,23 +15,23 @@ A powerful BlueOS preset player for the command line with multi-language support
 1. **Clone this repository:**
    ```bash
    git clone <repository-url>
-   cd blueosplayer
+   cd bluosplayer
    ```
 
 2. **Build the application:**
    ```bash
-   go build blueosplayer.go
+   go build bluosplayer.go
    ```
 
 ## 🚀 Usage
 
 1. **Start the application:**
    ```bash
-   ./blueosplayer
+   ./bluosplayer
    ```
 
 2. **Select a player:**  
-   The app will automatically scan your network and show available BlueOS players:
+   The app will automatically scan your network and show available BluOS players:
    ```
    📱 Available Players:
      [1] Living Room Speaker (Bluesound Node) - 192.168.1.100
@@ -74,9 +74,9 @@ Switch between languages anytime during operation:
 ## 📝 Example Session
 
 ```
-🎵 BlueOS Controller
+🎵 BluOS Controller
 ====================
-🔍 Scanning network for BlueOS players...
+🔍 Scanning network for BluOS players...
    Scanning network: 192.168.1
    ✅ Found: Living Room (Node 2i) at 192.168.1.100
 
@@ -86,7 +86,7 @@ Switch between languages anytime during operation:
 Select a player (1-1): 1
 ✅ Connected to: Living Room (192.168.1.100)
 
-🎵 BlueOS Controller - Interactive Mode
+🎵 BluOS Controller - Interactive Mode
 =======================================
 
 📊 Status: stop | Volume: 50%
@@ -101,28 +101,28 @@ Select a player (1-1): 1
   play              - Start playback
   ...
 
-Blueos> play 1
+BluOS> play 1
 ✅ Playing preset 1
 
 📊 Status: stream | Volume: 50%
 🎵 Great Song - Amazing Artist (Awesome Album)
 
-Blueos> lang de
+BluOS> lang de
 🌍 Sprache geändert zu Deutsch
 
-Blueos> help
+BluOS> help
 🎮 Verfügbare Befehle:
   play <preset_id>  - Preset abspielen
   ...
 
-Blueos> quit
+BluOS> quit
 👋 Auf Wiedersehen!
 ```
 
 ## 🔧 Requirements
 
 - Go 1.19 or higher
-- BlueOS-compatible device on the same network
+- BluOS-compatible device on the same network
 - Network access to scan for devices
 
 ## 🤝 Contributing
