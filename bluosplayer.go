@@ -24,9 +24,9 @@ const (
 type Language string
 
 const (
-	LangEnglish  Language = "en"
-	LangGerman   Language = "de"
-	LangSwahili  Language = "sw"
+	LangEnglish Language = "en"
+	LangGerman  Language = "de"
+	LangSwahili Language = "sw"
 )
 
 var currentLanguage = LangEnglish
@@ -34,220 +34,229 @@ var currentLanguage = LangEnglish
 // Localization texts
 var texts = map[Language]map[string]string{
 	LangEnglish: {
-		"title":                    "🎵 BluOS Controller",
-		"scanning":                 "🔍 Scanning network for BluOS players...",
-		"scanning_network":         "   Scanning network: %s",
-		"found_player":             "   ✅ Found: %s (%s) at %s",
-		"no_players":               "no BluOS players found",
-		"could_not_determine_ip":   "could not determine local IP: %w",
-		"available_players":        "📱 Available Players:",
-		"select_player":            "Select a player (1-%d): ",
-		"invalid_selection":        "❌ Invalid selection",
-		"connected_to":             "✅ Connected to: %s (%s)",
-		"error_selecting_player":   "Error selecting player: %v",
-		"interactive_mode":         "🎵 BluOS Controller - Interactive Mode",
-		"separator":                "=======================================",
-		"status_volume":            "📊 Status: %s | Volume: %s",
-		"volume_unknown":           "N/A",
-		"error_retrieving_status":  "❌ Error retrieving status",
-		"available_presets":        "📋 Available Presets:",
-		"error_loading_presets":    "❌ Error loading presets",
-		"available_commands":       "🎮 Available Commands:",
-		"cmd_play_preset":          "play <id>   - Play preset",
-		"cmd_play":                 "play       - Start playback",
-		"cmd_pause":                "pause      - Pause playback",
-		"cmd_stop":                 "stop       - Stop playback",
-		"cmd_next":                 "next       - Next track",
-		"cmd_prev":                 "prev       - Previous track",
-		"cmd_volume":               "vol <0-100> - Set volume",
-		"cmd_status":               "status     - Refresh status",
-		"cmd_presets":              "presets    - Refresh presets",
-		"cmd_help":                 "help       - Show help",
-		"cmd_lang":                 "lang <en|de|sw> - Change language",
-		"cmd_output":               "output <id> - Switch to player",
-		"cmd_group":                "group <id1+id2> - Group players",
-		"cmd_ungroup":              "ungroup - Remove all groups",
-		"cmd_debug":                "debug - Show API endpoints",
-		"cmd_quit":                 "quit/exit  - Exit program",
-		"prompt":                   "Command> ",
-		"invalid_preset_id":        "❌ Invalid preset ID",
-		"error_playing_preset":     "❌ Error playing preset",
-		"playing_preset":           "✅ Playing preset %d",
-		"error_starting_playback":  "❌ Error starting playback",
-		"playback_started":         "▶️ Playback started",
-		"error_pausing":            "❌ Error pausing",
-		"paused":                   "⏸️ Paused",
-		"error_stopping":           "❌ Error stopping",
-		"stopped":                  "⏹️ Stopped",
-		"error_next_track":         "❌ Error skipping to next track",
-		"next_track":               "⏭️ Next track",
-		"error_prev_track":         "❌ Error going to previous track",
-		"prev_track":               "⏮️ Previous track",
-		"volume_missing":           "❌ Volume value missing",
-		"invalid_volume":           "❌ Invalid volume value",
-		"error_setting_volume":     "❌ Error setting volume",
-		"volume_set":               "🔊 Volume set to %d%%",
-		"language_changed":         "🌍 Language changed to",
-		"invalid_language":         "❌ Invalid language. Use: en, de, sw",
-		"goodbye":                  "👋 Goodbye!",
-		"unknown_command":          "❌ Unknown command: %s (Type 'help' for help)",
-		"last_action":              "Last Action:",
-		"no_song_playing":          "No song playing",
-		"available_outputs":        "📱 Available Players:",
-		"current_player":           "Current Player:",
-		"switched_to_player":       "🔄 Switched to player %d: %s",
-		"invalid_player_id":        "❌ Invalid player ID",
-		"error_switching_player":   "❌ Error switching to player",
-		"grouped_players":          "🔗 Grouped players: %s as master",
-		"invalid_group_format":     "❌ Invalid group format. Use: group <id1+id2>",
-		"error_grouping":           "❌ Error grouping players",
-		"group_combinations":       "🎵 Group Combinations:",
-		"ungrouped_all":            "🔓 All player groups removed",
-		"error_ungrouping":         "❌ Error removing groups",
+		"title":                   "🎵 BluOS Controller",
+		"scanning":                "🔍 Scanning network for BluOS players...",
+		"scanning_network":        "   Scanning network: %s",
+		"scanning_interface":      "   Interface %s: %s",
+		"found_player":            "   ✅ Found: %s (%s) at %s",
+		"no_players":              "no BluOS players found",
+		"could_not_determine_ip":  "could not determine local IP: %w",
+		"available_players":       "📱 Available Players:",
+		"select_player":           "Select a player (1-%d): ",
+		"invalid_selection":       "❌ Invalid selection",
+		"connected_to":            "✅ Connected to: %s (%s)",
+		"error_selecting_player":  "Error selecting player: %v",
+		"interactive_mode":        "🎵 BluOS Controller - Interactive Mode",
+		"separator":               "=======================================",
+		"status_volume":           "📊 Status: %s | Volume: %s",
+		"volume_unknown":          "N/A",
+		"error_retrieving_status": "❌ Error retrieving status",
+		"available_presets":       "📋 Available Presets:",
+		"error_loading_presets":   "❌ Error loading presets",
+		"available_commands":      "🎮 Available Commands:",
+		"cmd_play_preset":         "play <id>   - Play preset",
+		"cmd_play":                "play       - Start playback",
+		"cmd_pause":               "pause      - Pause playback",
+		"cmd_stop":                "stop       - Stop playback",
+		"cmd_next":                "next       - Next track",
+		"cmd_prev":                "prev       - Previous track",
+		"cmd_volume":              "vol <0-100> - Set volume",
+		"cmd_status":              "status     - Refresh status",
+		"cmd_presets":             "presets    - Refresh presets",
+		"cmd_help":                "help       - Show help",
+		"cmd_lang":                "lang <en|de|sw> - Change language",
+		"cmd_output":              "output <id> - Switch to player",
+		"cmd_group":               "group <id1+id2> - Group players",
+		"cmd_ungroup":             "ungroup - Remove all groups",
+		"cmd_debug":               "debug - Show API endpoints",
+		"cmd_quit":                "quit/exit  - Exit program",
+		"prompt":                  "Command> ",
+		"invalid_preset_id":       "❌ Invalid preset ID",
+		"error_playing_preset":    "❌ Error playing preset",
+		"playing_preset":          "✅ Playing preset %d",
+		"error_starting_playback": "❌ Error starting playback",
+		"playback_started":        "▶️ Playback started",
+		"error_pausing":           "❌ Error pausing",
+		"paused":                  "⏸️ Paused",
+		"error_stopping":          "❌ Error stopping",
+		"stopped":                 "⏹️ Stopped",
+		"error_next_track":        "❌ Error skipping to next track",
+		"next_track":              "⏭️ Next track",
+		"error_prev_track":        "❌ Error going to previous track",
+		"prev_track":              "⏮️ Previous track",
+		"volume_missing":          "❌ Volume value missing",
+		"invalid_volume":          "❌ Invalid volume value",
+		"error_setting_volume":    "❌ Error setting volume",
+		"volume_set":              "🔊 Volume set to %d%%",
+		"language_changed":        "🌍 Language changed to",
+		"invalid_language":        "❌ Invalid language. Use: en, de, sw",
+		"goodbye":                 "👋 Goodbye!",
+		"unknown_command":         "❌ Unknown command: %s (Type 'help' for help)",
+		"last_action":             "Last Action:",
+		"no_song_playing":         "No song playing",
+		"available_outputs":       "📱 Available Players:",
+		"current_player":          "Current Player:",
+		"switched_to_player":      "🔄 Switched to player %d: %s",
+		"invalid_player_id":       "❌ Invalid player ID",
+		"error_switching_player":  "❌ Error switching to player",
+		"grouped_players":         "🔗 Grouped players: %s as master",
+		"invalid_group_format":    "❌ Invalid group format. Use: group <id1+id2>",
+		"error_grouping":          "❌ Error grouping players",
+		"group_combinations":      "🎵 Group Combinations:",
+		"ungrouped_all":           "🔓 All player groups removed",
+		"error_ungrouping":        "❌ Error removing groups",
+		"scanning_interfaces":     "🔍 Found %d network interfaces to scan",
+		"completed_scan":          "✅ Completed scanning %d networks",
 	},
 	LangGerman: {
-		"title":                    "🎵 BluOS Controller",
-		"scanning":                 "🔍 Suche nach BluOS Playern im Netzwerk...",
-		"scanning_network":         "   Scanne Netzwerk: %s",
-		"found_player":             "   ✅ Gefunden: %s (%s) auf %s",
-		"no_players":               "keine BluOS Player gefunden",
-		"could_not_determine_ip":   "konnte lokale IP nicht ermitteln: %w",
-		"available_players":        "📱 Verfügbare Player:",
-		"select_player":            "Wähle einen Player (1-%d): ",
-		"invalid_selection":        "❌ Ungültige Auswahl",
-		"connected_to":             "✅ Verbunden mit: %s (%s)",
-		"error_selecting_player":   "Fehler bei der Player-Auswahl: %v",
-		"interactive_mode":         "🎵 BluOS Controller - Interaktiver Modus",
-		"separator":                "==========================================",
-		"status_volume":            "📊 Status: %s | Lautstärke: %s",
-		"volume_unknown":           "N/A",
-		"error_retrieving_status":  "❌ Fehler beim Abrufen des Status",
-		"available_presets":        "📋 Verfügbare Presets:",
-		"error_loading_presets":    "❌ Fehler beim Laden der Presets",
-		"available_commands":       "🎮 Verfügbare Befehle:",
-		"cmd_play_preset":          "play <id>   - Preset abspielen",
-		"cmd_play":                 "play       - Wiedergabe starten",
-		"cmd_pause":                "pause      - Pausieren",
-		"cmd_stop":                 "stop       - Stoppen",
-		"cmd_next":                 "next       - Nächster Titel",
-		"cmd_prev":                 "prev       - Vorheriger Titel",
-		"cmd_volume":               "vol <0-100> - Lautstärke setzen",
-		"cmd_status":               "status     - Status aktualisieren",
-		"cmd_presets":              "presets    - Presets aktualisieren",
-		"cmd_help":                 "help       - Hilfe anzeigen",
-		"cmd_lang":                 "lang <en|de|sw> - Sprache ändern",
-		"cmd_output":               "output <id> - Zu Player wechseln",
-		"cmd_group":                "group <id1+id2> - Player gruppieren",
-		"cmd_ungroup":              "ungroup - Alle Gruppen auflösen",
-		"cmd_debug":                "debug - API-Endpunkte anzeigen",
-		"cmd_quit":                 "quit/exit  - Programm beenden",
-		"prompt":                   "Befehl> ",
-		"invalid_preset_id":        "❌ Ungültige Preset-ID",
-		"error_playing_preset":     "❌ Fehler beim Abspielen",
-		"playing_preset":           "✅ Preset %d wird abgespielt",
-		"error_starting_playback":  "❌ Fehler beim Starten",
-		"playback_started":         "▶️ Wiedergabe gestartet",
-		"error_pausing":            "❌ Fehler beim Pausieren",
-		"paused":                   "⏸️ Pausiert",
-		"error_stopping":           "❌ Fehler beim Stoppen",
-		"stopped":                  "⏹️ Gestoppt",
-		"error_next_track":         "❌ Fehler beim Weiterschalten",
-		"next_track":               "⏭️ Nächster Titel",
-		"error_prev_track":         "❌ Fehler beim Zurückschalten",
-		"prev_track":               "⏮️ Vorheriger Titel",
-		"volume_missing":           "❌ Lautstärke-Wert fehlt",
-		"invalid_volume":           "❌ Ungültiger Lautstärke-Wert",
-		"error_setting_volume":     "❌ Fehler beim Setzen der Lautstärke",
-		"volume_set":               "🔊 Lautstärke auf %d%% gesetzt",
-		"language_changed":         "🌍 Sprache geändert zu",
-		"invalid_language":         "❌ Ungültige Sprache. Verwende: en, de, sw",
-		"goodbye":                  "👋 Auf Wiedersehen!",
-		"unknown_command":          "❌ Unbekannter Befehl: %s (Tippe 'help' für Hilfe)",
-		"last_action":              "Letzte Aktion:",
-		"no_song_playing":          "Kein Lied wird abgespielt",
-		"available_outputs":        "📱 Verfügbare Player:",
-		"current_player":           "Aktueller Player:",
-		"switched_to_player":       "🔄 Gewechselt zu Player %d: %s",
-		"invalid_player_id":        "❌ Ungültige Player-ID",
-		"error_switching_player":   "❌ Fehler beim Wechseln des Players",
-		"grouped_players":          "🔗 Player gruppiert: %s als Master",
-		"invalid_group_format":     "❌ Ungültiges Gruppen-Format. Verwende: group <id1+id2>",
-		"error_grouping":           "❌ Fehler beim Gruppieren",
-		"group_combinations":       "🎵 Gruppen-Kombinationen:",
-		"ungrouped_all":            "🔓 Alle Player-Gruppen aufgelöst",
-		"error_ungrouping":         "❌ Fehler beim Auflösen der Gruppen",
+		"title":                   "🎵 BluOS Controller",
+		"scanning":                "🔍 Suche nach BluOS Playern im Netzwerk...",
+		"scanning_network":        "   Scanne Netzwerk: %s",
+		"scanning_interface":      "   Interface %s: %s",
+		"found_player":            "   ✅ Gefunden: %s (%s) auf %s",
+		"no_players":              "keine BluOS Player gefunden",
+		"could_not_determine_ip":  "konnte lokale IP nicht ermitteln: %w",
+		"available_players":       "📱 Verfügbare Player:",
+		"select_player":           "Wähle einen Player (1-%d): ",
+		"invalid_selection":       "❌ Ungültige Auswahl",
+		"connected_to":            "✅ Verbunden mit: %s (%s)",
+		"error_selecting_player":  "Fehler bei der Player-Auswahl: %v",
+		"interactive_mode":        "🎵 BluOS Controller - Interaktiver Modus",
+		"separator":               "==========================================",
+		"status_volume":           "📊 Status: %s | Lautstärke: %s",
+		"volume_unknown":          "N/A",
+		"error_retrieving_status": "❌ Fehler beim Abrufen des Status",
+		"available_presets":       "📋 Verfügbare Presets:",
+		"error_loading_presets":   "❌ Fehler beim Laden der Presets",
+		"available_commands":      "🎮 Verfügbare Befehle:",
+		"cmd_play_preset":         "play <id>   - Preset abspielen",
+		"cmd_play":                "play       - Wiedergabe starten",
+		"cmd_pause":               "pause      - Pausieren",
+		"cmd_stop":                "stop       - Stoppen",
+		"cmd_next":                "next       - Nächster Titel",
+		"cmd_prev":                "prev       - Vorheriger Titel",
+		"cmd_volume":              "vol <0-100> - Lautstärke setzen",
+		"cmd_status":              "status     - Status aktualisieren",
+		"cmd_presets":             "presets    - Presets aktualisieren",
+		"cmd_help":                "help       - Hilfe anzeigen",
+		"cmd_lang":                "lang <en|de|sw> - Sprache ändern",
+		"cmd_output":              "output <id> - Zu Player wechseln",
+		"cmd_group":               "group <id1+id2> - Player gruppieren",
+		"cmd_ungroup":             "ungroup - Alle Gruppen auflösen",
+		"cmd_debug":               "debug - API-Endpunkte anzeigen",
+		"cmd_quit":                "quit/exit  - Programm beenden",
+		"prompt":                  "Befehl> ",
+		"invalid_preset_id":       "❌ Ungültige Preset-ID",
+		"error_playing_preset":    "❌ Fehler beim Abspielen",
+		"playing_preset":          "✅ Preset %d wird abgespielt",
+		"error_starting_playback": "❌ Fehler beim Starten",
+		"playback_started":        "▶️ Wiedergabe gestartet",
+		"error_pausing":           "❌ Fehler beim Pausieren",
+		"paused":                  "⏸️ Pausiert",
+		"error_stopping":          "❌ Fehler beim Stoppen",
+		"stopped":                 "⏹️ Gestoppt",
+		"error_next_track":        "❌ Fehler beim Weiterschalten",
+		"next_track":              "⏭️ Nächster Titel",
+		"error_prev_track":        "❌ Fehler beim Zurückschalten",
+		"prev_track":              "⏮️ Vorheriger Titel",
+		"volume_missing":          "❌ Lautstärke-Wert fehlt",
+		"invalid_volume":          "❌ Ungültiger Lautstärke-Wert",
+		"error_setting_volume":    "❌ Fehler beim Setzen der Lautstärke",
+		"volume_set":              "🔊 Lautstärke auf %d%% gesetzt",
+		"language_changed":        "🌍 Sprache geändert zu",
+		"invalid_language":        "❌ Ungültige Sprache. Verwende: en, de, sw",
+		"goodbye":                 "👋 Auf Wiedersehen!",
+		"unknown_command":         "❌ Unbekannter Befehl: %s (Tippe 'help' für Hilfe)",
+		"last_action":             "Letzte Aktion:",
+		"no_song_playing":         "Kein Lied wird abgespielt",
+		"available_outputs":       "📱 Verfügbare Player:",
+		"current_player":          "Aktueller Player:",
+		"switched_to_player":      "🔄 Gewechselt zu Player %d: %s",
+		"invalid_player_id":       "❌ Ungültige Player-ID",
+		"error_switching_player":  "❌ Fehler beim Wechseln des Players",
+		"grouped_players":         "🔗 Player gruppiert: %s als Master",
+		"invalid_group_format":    "❌ Ungültiges Gruppen-Format. Verwende: group <id1+id2>",
+		"error_grouping":          "❌ Fehler beim Gruppieren",
+		"group_combinations":      "🎵 Gruppen-Kombinationen:",
+		"ungrouped_all":           "🔓 Alle Player-Gruppen aufgelöst",
+		"error_ungrouping":        "❌ Fehler beim Auflösen der Gruppen",
+		"scanning_interfaces":     "🔍 %d Netzwerkschnittstellen gefunden zum Scannen",
+		"completed_scan":          "✅ Scannen von %d Netzwerken abgeschlossen",
 	},
 	LangSwahili: {
-		"title":                    "🎵 Kidhibiti cha BluOS",
-		"scanning":                 "🔍 Kutafuta vichezaji vya BluOS kwenye mtandao...",
-		"scanning_network":         "   Kutafuta mtandao: %s",
-		"found_player":             "   ✅ Kumepatikana: %s (%s) kwa %s",
-		"no_players":               "hakuna vichezaji vya BluOS vilivopatikana",
-		"could_not_determine_ip":   "haikuweza kutambua IP ya ndani: %w",
-		"available_players":        "📱 Vichezaji Vinavyopatikana:",
-		"select_player":            "Chagua kichezaji (1-%d): ",
-		"invalid_selection":        "❌ Chaguo batili",
-		"connected_to":             "✅ Imeunganishwa na: %s (%s)",
-		"error_selecting_player":   "Hitilafu katika kuchagua kichezaji: %v",
-		"interactive_mode":         "🎵 Kidhibiti cha BluOS - Hali ya Maingiliano",
-		"separator":                "===========================================",
-		"status_volume":            "📊 Hali: %s | Sauti: %s",
-		"volume_unknown":           "N/A",
-		"error_retrieving_status":  "❌ Hitilafu katika kupata hali",
-		"available_presets":        "📋 Mipangilio Inayopatikana:",
-		"error_loading_presets":    "❌ Hitilafu katika kupakia mipangilio",
-		"available_commands":       "🎮 Amri Zinazopatikana:",
-		"cmd_play_preset":          "play <id>   - Cheza mpangilio",
-		"cmd_play":                 "play       - Anza kucheza",
-		"cmd_pause":                "pause      - Simamisha",
-		"cmd_stop":                 "stop       - Acha",
-		"cmd_next":                 "next       - Wimbo ujao",
-		"cmd_prev":                 "prev       - Wimbo uliopita",
-		"cmd_volume":               "vol <0-100> - Weka sauti",
-		"cmd_status":               "status     - Onyesha hali",
-		"cmd_presets":              "presets    - Onyesha mipangilio",
-		"cmd_help":                 "help       - Onyesha msaada",
-		"cmd_lang":                 "lang <en|de|sw> - Badilisha lugha",
-		"cmd_output":               "output <id> - Badili kichezaji",
-		"cmd_group":                "group <id1+id2> - Unganisha vichezaji",
-		"cmd_ungroup":              "ungroup - Ondoa vikundi vyote",
-		"cmd_debug":                "debug - Onyesha API endpoints",
-		"cmd_quit":                 "quit/exit  - Toka programu",
-		"prompt":                   "Amri> ",
-		"invalid_preset_id":        "❌ Kitambulisho cha mpangilio si halali",
-		"error_playing_preset":     "❌ Hitilafu katika kucheza mpangilio",
-		"playing_preset":           "✅ Kucheza mpangilio %d",
-		"error_starting_playback":  "❌ Hitilafu katika kuanza kucheza",
-		"playback_started":         "▶️ Imeanza kucheza",
-		"error_pausing":            "❌ Hitilafu katika kusimamisha",
-		"paused":                   "⏸️ Imesimamishwa",
-		"error_stopping":           "❌ Hitilafu katika kuacha",
-		"stopped":                  "⏹️ Imeachwa",
-		"error_next_track":         "❌ Hitilafu katika kuruka wimbo ujao",
-		"next_track":               "⏭️ Wimbo ujao",
-		"error_prev_track":         "❌ Hitilafu katika kurudi wimbo uliopita",
-		"prev_track":               "⏮️ Wimbo uliopita",
-		"volume_missing":           "❌ Thamani ya sauti inakosekana",
-		"invalid_volume":           "❌ Thamani ya sauti si halali",
-		"error_setting_volume":     "❌ Hitilafu katika kuweka sauti",
-		"volume_set":               "🔊 Sauti imewekwa %d%%",
-		"language_changed":         "🌍 Lugha imebadilishwa kuwa",
-		"invalid_language":         "❌ Lugha si halali. Tumia: en, de, sw",
-		"goodbye":                  "👋 Kwaheri!",
-		"unknown_command":          "❌ Amri isiyojulikana: %s (Andika 'help' kwa msaada)",
-		"last_action":              "Kitendo cha Mwisho:",
-		"no_song_playing":          "Hakuna wimbo unaochezwa",
-		"available_outputs":        "📱 Vichezaji Vinavyopatikana:",
-		"current_player":           "Kichezaji cha Sasa:",
-		"switched_to_player":       "🔄 Imebadilishwa kwa kichezaji %d: %s",
-		"invalid_player_id":        "❌ Kitambulisho cha kichezaji si halali",
-		"error_switching_player":   "❌ Hitilafu katika kubadili kichezaji",
-		"grouped_players":          "🔗 Vichezaji vimeunganishwa: %s kama mkuu",
-		"invalid_group_format":     "❌ Muundo wa kikundi si halali. Tumia: group <id1+id2>",
-		"error_grouping":           "❌ Hitilafu katika kuunganisha",
-		"group_combinations":       "🎵 Miunganiko ya Vikundi:",
-		"ungrouped_all":            "🔓 Vikundi vyote vya vichezaji vimeondolewa",
-		"error_ungrouping":         "❌ Hitilafu katika kuondoa vikundi",
+		"title":                   "🎵 Kidhibiti cha BluOS",
+		"scanning":                "🔍 Kutafuta vichezaji vya BluOS kwenye mtandao...",
+		"scanning_network":        "   Kutafuta mtandao: %s",
+		"scanning_interface":      "   Interface %s: %s",
+		"found_player":            "   ✅ Kumepatikana: %s (%s) kwa %s",
+		"no_players":              "hakuna vichezaji vya BluOS vilivopatikana",
+		"could_not_determine_ip":  "haikuweza kutambua IP ya ndani: %w",
+		"available_players":       "📱 Vichezaji Vinavyopatikana:",
+		"select_player":           "Chagua kichezaji (1-%d): ",
+		"invalid_selection":       "❌ Chaguo batili",
+		"connected_to":            "✅ Imeunganishwa na: %s (%s)",
+		"error_selecting_player":  "Hitilafu katika kuchagua kichezaji: %v",
+		"interactive_mode":        "🎵 Kidhibiti cha BluOS - Hali ya Maingiliano",
+		"separator":               "===========================================",
+		"status_volume":           "📊 Hali: %s | Sauti: %s",
+		"volume_unknown":          "N/A",
+		"error_retrieving_status": "❌ Hitilafu katika kupata hali",
+		"available_presets":       "📋 Mipangilio Inayopatikana:",
+		"error_loading_presets":   "❌ Hitilafu katika kupakia mipangilio",
+		"available_commands":      "🎮 Amri Zinazopatikana:",
+		"cmd_play_preset":         "play <id>   - Cheza mpangilio",
+		"cmd_play":                "play       - Anza kucheza",
+		"cmd_pause":               "pause      - Simamisha",
+		"cmd_stop":                "stop       - Acha",
+		"cmd_next":                "next       - Wimbo ujao",
+		"cmd_prev":                "prev       - Wimbo uliopita",
+		"cmd_volume":              "vol <0-100> - Weka sauti",
+		"cmd_status":              "status     - Onyesha hali",
+		"cmd_presets":             "presets    - Onyesha mipangilio",
+		"cmd_help":                "help       - Onyesha msaada",
+		"cmd_lang":                "lang <en|de|sw> - Badilisha lugha",
+		"cmd_output":              "output <id> - Badili kichezaji",
+		"cmd_group":               "group <id1+id2> - Unganisha vichezaji",
+		"cmd_ungroup":             "ungroup - Ondoa vikundi vyote",
+		"cmd_debug":               "debug - Onyesha API endpoints",
+		"cmd_quit":                "quit/exit  - Toka programu",
+		"prompt":                  "Amri> ",
+		"invalid_preset_id":       "❌ Kitambulisho cha mpangilio si halali",
+		"error_playing_preset":    "❌ Hitilafu katika kucheza mpangilio",
+		"playing_preset":          "✅ Kucheza mpangilio %d",
+		"error_starting_playback": "❌ Hitilafu katika kuanza kucheza",
+		"playback_started":        "▶️ Imeanza kucheza",
+		"error_pausing":           "❌ Hitilafu katika kusimamisha",
+		"paused":                  "⏸️ Imesimamishwa",
+		"error_stopping":          "❌ Hitilafu katika kuacha",
+		"stopped":                 "⏹️ Imeachwa",
+		"error_next_track":        "❌ Hitilafu katika kuruka wimbo ujao",
+		"next_track":              "⏭️ Wimbo ujao",
+		"error_prev_track":        "❌ Hitilafu katika kurudi wimbo uliopita",
+		"prev_track":              "⏮️ Wimbo uliopita",
+		"volume_missing":          "❌ Thamani ya sauti inakosekana",
+		"invalid_volume":          "❌ Thamani ya sauti si halali",
+		"error_setting_volume":    "❌ Hitilafu katika kuweka sauti",
+		"volume_set":              "🔊 Sauti imewekwa %d%%",
+		"language_changed":        "🌍 Lugha imebadilishwa kuwa",
+		"invalid_language":        "❌ Lugha si halali. Tumia: en, de, sw",
+		"goodbye":                 "👋 Kwaheri!",
+		"unknown_command":         "❌ Amri isiyojulikana: %s (Andika 'help' kwa msaada)",
+		"last_action":             "Kitendo cha Mwisho:",
+		"no_song_playing":         "Hakuna wimbo unaochezwa",
+		"available_outputs":       "📱 Vichezaji Vinavyopatikana:",
+		"current_player":          "Kichezaji cha Sasa:",
+		"switched_to_player":      "🔄 Imebadilishwa kwa kichezaji %d: %s",
+		"invalid_player_id":       "❌ Kitambulisho cha kichezaji si halali",
+		"error_switching_player":  "❌ Hitilafu katika kubadili kichezaji",
+		"grouped_players":         "🔗 Vichezaji vimeunganishwa: %s kama mkuu",
+		"invalid_group_format":    "❌ Muundo wa kikundi si halali. Tumia: group <id1+id2>",
+		"error_grouping":          "❌ Hitilafu katika kuunganisha",
+		"group_combinations":      "🎵 Miunganiko ya Vikundi:",
+		"ungrouped_all":           "🔓 Vikundi vyote vya vichezaji vimeondolewa",
+		"error_ungrouping":        "❌ Hitilafu katika kuondoa vikundi",
+		"scanning_interfaces":     "🔍 Kumepatikana %d network interfaces za kutafuta",
+		"completed_scan":          "✅ Imemaliza kutafuta %d mitandao",
 	},
 }
 
@@ -300,6 +309,13 @@ type PlayerInfo struct {
 	Model string
 }
 
+// Network interface info
+type NetworkInterface struct {
+	Name   string
+	IP     string
+	Subnet string
+}
+
 // Bluesound API Client
 type BluesoundClient struct {
 	baseURL string
@@ -334,52 +350,159 @@ func clearScreen() {
 	fmt.Print("\033[2J\033[H")
 }
 
-// Network scanner
+// Enhanced network scanner that scans all available interfaces
 func scanForPlayers() ([]PlayerInfo, error) {
 	fmt.Println(getText("scanning"))
-	
-	// Get local IP
-	localIP, err := getLocalIP()
+
+	// Get all network interfaces
+	interfaces, err := getAllNetworkInterfaces()
 	if err != nil {
 		return nil, fmt.Errorf(getText("could_not_determine_ip"), err)
 	}
-	
-	// Calculate network range
-	subnet := getSubnet(localIP)
-	fmt.Printf(getText("scanning_network")+"\n", subnet)
-	
+
+	if len(interfaces) == 0 {
+		return nil, fmt.Errorf("no network interfaces found")
+	}
+
+	fmt.Printf(getText("scanning_interfaces")+"\n", len(interfaces))
+
 	var players []PlayerInfo
 	var mu sync.Mutex
 	var wg sync.WaitGroup
-	
-	// Scan all IPs in subnet in parallel
-	for i := 1; i < 255; i++ {
-		wg.Add(1)
-		go func(ip string) {
-			defer wg.Done()
-			
-			if player, found := checkForBluOSPlayer(ip); found {
-				mu.Lock()
-				players = append(players, player)
-				mu.Unlock()
-				fmt.Printf(getText("found_player")+"\n", player.Name, player.Model, player.IP)
-			}
-		}(fmt.Sprintf("%s.%d", subnet, i))
+
+	// Scan each network interface
+	for _, iface := range interfaces {
+		fmt.Printf(getText("scanning_interface")+"\n", iface.Name, iface.Subnet)
+
+		// Scan all IPs in this subnet in parallel
+		for i := 1; i < 255; i++ {
+			wg.Add(1)
+			go func(ip string) {
+				defer wg.Done()
+
+				if player, found := checkForBluOSPlayer(ip); found {
+					mu.Lock()
+					// Check if we already found this player on another interface
+					exists := false
+					for _, existingPlayer := range players {
+						if existingPlayer.IP == player.IP {
+							exists = true
+							break
+						}
+					}
+					if !exists {
+						players = append(players, player)
+						fmt.Printf(getText("found_player")+"\n", player.Name, player.Model, player.IP)
+					}
+					mu.Unlock()
+				}
+			}(fmt.Sprintf("%s.%d", iface.Subnet, i))
+		}
 	}
-	
+
 	wg.Wait()
+	fmt.Printf(getText("completed_scan")+"\n", len(interfaces))
 	return players, nil
 }
 
-func getLocalIP() (string, error) {
-	conn, err := net.Dial("udp", "8.8.8.8:80")
+// Get all network interfaces with their subnets
+func getAllNetworkInterfaces() ([]NetworkInterface, error) {
+	var interfaces []NetworkInterface
+
+	// Get all network interfaces
+	ifaces, err := net.Interfaces()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-	defer conn.Close()
-	
-	localAddr := conn.LocalAddr().(*net.UDPAddr)
-	return localAddr.IP.String(), nil
+
+	for _, iface := range ifaces {
+		// Skip down interfaces and loopback
+		if iface.Flags&net.FlagUp == 0 || iface.Flags&net.FlagLoopback != 0 {
+			continue
+		}
+
+		// Get addresses for this interface
+		addrs, err := iface.Addrs()
+		if err != nil {
+			continue
+		}
+
+		for _, addr := range addrs {
+			// Only process IPv4 addresses
+			if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+				if ipnet.IP.To4() != nil {
+					subnet := getSubnet(ipnet.IP.String())
+
+					// Skip common virtual/internal networks unless they're the only option
+					ipStr := ipnet.IP.String()
+					if !isUsefulNetwork(ipStr) {
+						continue
+					}
+
+					interfaces = append(interfaces, NetworkInterface{
+						Name:   iface.Name,
+						IP:     ipStr,
+						Subnet: subnet,
+					})
+				}
+			}
+		}
+	}
+
+	// If no "useful" networks found, include all IPv4 networks
+	if len(interfaces) == 0 {
+		for _, iface := range ifaces {
+			if iface.Flags&net.FlagUp == 0 || iface.Flags&net.FlagLoopback != 0 {
+				continue
+			}
+
+			addrs, err := iface.Addrs()
+			if err != nil {
+				continue
+			}
+
+			for _, addr := range addrs {
+				if ipnet, ok := addr.(*net.IPNet); ok && !ipnet.IP.IsLoopback() {
+					if ipnet.IP.To4() != nil {
+						subnet := getSubnet(ipnet.IP.String())
+						interfaces = append(interfaces, NetworkInterface{
+							Name:   iface.Name,
+							IP:     ipnet.IP.String(),
+							Subnet: subnet,
+						})
+					}
+				}
+			}
+		}
+	}
+
+	return interfaces, nil
+}
+
+// Check if this is a "useful" network (not VirtualBox NAT, etc.)
+func isUsefulNetwork(ip string) bool {
+	// Common home/office networks
+	if strings.HasPrefix(ip, "192.168.") {
+		return true
+	}
+	if strings.HasPrefix(ip, "10.0.0.") || strings.HasPrefix(ip, "10.0.1.") {
+		return true
+	}
+	if strings.HasPrefix(ip, "172.16.") || strings.HasPrefix(ip, "172.17.") {
+		return true
+	}
+
+	// VirtualBox NAT network (usually not where real devices are)
+	if strings.HasPrefix(ip, "10.0.2.") {
+		return false
+	}
+
+	// Docker networks
+	if strings.HasPrefix(ip, "172.17.") {
+		return false
+	}
+
+	return true
 }
 
 func getSubnet(ip string) string {
@@ -390,27 +513,27 @@ func getSubnet(ip string) string {
 func checkForBluOSPlayer(ip string) (PlayerInfo, bool) {
 	client := &http.Client{Timeout: ScanTimeout}
 	url := fmt.Sprintf("http://%s:%s/SyncStatus", ip, BluesoundPort)
-	
+
 	resp, err := client.Get(url)
 	if err != nil {
 		return PlayerInfo{}, false
 	}
 	defer resp.Body.Close()
-	
+
 	if resp.StatusCode != http.StatusOK {
 		return PlayerInfo{}, false
 	}
-	
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return PlayerInfo{}, false
 	}
-	
+
 	var syncStatus SyncStatus
 	if err := xml.Unmarshal(body, &syncStatus); err != nil {
 		return PlayerInfo{}, false
 	}
-	
+
 	return PlayerInfo{
 		IP:    ip,
 		Name:  syncStatus.Name,
@@ -556,13 +679,13 @@ func updatePresets() {
 // Render the complete TUI
 func renderTUI() {
 	clearScreen()
-	
+
 	// Header
 	fmt.Println(getText("title"))
 	fmt.Println(strings.Repeat("=", 70))
 	fmt.Printf("🔗 %s %s\n", getText("current_player"), tuiState.playerName)
 	fmt.Println()
-	
+
 	// Available Players Section
 	if len(tuiState.availablePlayers) > 1 {
 		fmt.Println(getText("available_outputs"))
@@ -573,7 +696,7 @@ func renderTUI() {
 			}
 			fmt.Printf("  [%d] %s (%s)%s\n", i+1, player.Name, player.IP, activeMarker)
 		}
-		
+
 		// Show possible group combinations
 		if len(tuiState.availablePlayers) > 1 {
 			fmt.Println(getText("group_combinations"))
@@ -587,7 +710,7 @@ func renderTUI() {
 		}
 		fmt.Println()
 	}
-	
+
 	// Status Section
 	if tuiState.statusError != "" {
 		fmt.Println(tuiState.statusError)
@@ -611,7 +734,7 @@ func renderTUI() {
 		}
 	}
 	fmt.Println()
-	
+
 	// Presets Section
 	fmt.Println(getText("available_presets"))
 	if tuiState.presetsError != "" {
@@ -622,19 +745,19 @@ func renderTUI() {
 		}
 	}
 	fmt.Println()
-	
+
 	// Commands Section - Display in compact rows (hide utility commands)
 	fmt.Println(getText("available_commands"))
 	fmt.Println("  play <id> | play | pause | stop | next | prev | vol <0-100>")
 	fmt.Println("  output <id> | group <id1+id2> | ungroup | lang <en|de|sw> | quit")
 	fmt.Println()
-	
+
 	// Last Action
 	if tuiState.lastAction != "" {
 		fmt.Printf("%s %s\n", getText("last_action"), tuiState.lastAction)
 		fmt.Println()
 	}
-	
+
 	// Separator line
 	fmt.Println(strings.Repeat("=", 70))
 }
@@ -645,28 +768,28 @@ func selectPlayer() (*BluesoundClient, string, []PlayerInfo, error) {
 	if err != nil {
 		return nil, "", nil, err
 	}
-	
+
 	if len(players) == 0 {
 		return nil, "", nil, fmt.Errorf(getText("no_players"))
 	}
-	
+
 	fmt.Println("\n" + getText("available_players"))
 	for i, player := range players {
 		fmt.Printf("  [%d] %s (%s %s) - %s\n", i+1, player.Name, player.Brand, player.Model, player.IP)
 	}
-	
+
 	reader := bufio.NewReader(os.Stdin)
 	for {
 		fmt.Printf("\n"+getText("select_player"), len(players))
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
-		
+
 		choice, err := strconv.Atoi(input)
 		if err != nil || choice < 1 || choice > len(players) {
 			fmt.Println(getText("invalid_selection"))
 			continue
 		}
-		
+
 		selectedPlayer := players[choice-1]
 		fmt.Printf(getText("connected_to")+"\n", selectedPlayer.Name, selectedPlayer.IP)
 		return NewBluesoundClient(selectedPlayer.IP), selectedPlayer.Name, players, nil
@@ -679,12 +802,12 @@ func switchToPlayer(playerID int) {
 		tuiState.lastAction = getText("invalid_player_id")
 		return
 	}
-	
+
 	selectedPlayer := tuiState.availablePlayers[playerID-1]
 	tuiState.client = NewBluesoundClient(selectedPlayer.IP)
 	tuiState.playerName = selectedPlayer.Name
 	tuiState.lastAction = fmt.Sprintf(getText("switched_to_player"), playerID, selectedPlayer.Name)
-	
+
 	// Update status and presets for new player
 	updateStatus()
 	updatePresets()
@@ -697,34 +820,34 @@ func groupPlayers(groupSpec string) {
 		tuiState.lastAction = getText("invalid_group_format")
 		return
 	}
-	
+
 	masterID, err1 := strconv.Atoi(parts[0])
 	slaveID, err2 := strconv.Atoi(parts[1])
-	
-	if err1 != nil || err2 != nil || masterID < 1 || slaveID < 1 || 
-	   masterID > len(tuiState.availablePlayers) || slaveID > len(tuiState.availablePlayers) {
+
+	if err1 != nil || err2 != nil || masterID < 1 || slaveID < 1 ||
+		masterID > len(tuiState.availablePlayers) || slaveID > len(tuiState.availablePlayers) {
 		tuiState.lastAction = getText("invalid_group_format")
 		return
 	}
-	
+
 	if masterID == slaveID {
 		tuiState.lastAction = getText("invalid_group_format")
 		return
 	}
-	
+
 	masterPlayer := tuiState.availablePlayers[masterID-1]
 	slavePlayer := tuiState.availablePlayers[slaveID-1]
-	
+
 	// Switch to master player
 	tuiState.client = NewBluesoundClient(masterPlayer.IP)
 	tuiState.playerName = masterPlayer.Name
-	
+
 	// Add slave to master
 	if err := tuiState.client.AddSlave(slavePlayer.IP); err != nil {
 		tuiState.lastAction = getText("error_grouping")
 		return
 	}
-	
+
 	tuiState.lastAction = fmt.Sprintf(getText("grouped_players"), masterPlayer.Name)
 	updateStatus()
 }
@@ -732,11 +855,11 @@ func groupPlayers(groupSpec string) {
 // Debug function to test API endpoints
 func debugAPI() {
 	tuiState.lastAction = "Testing API endpoints..."
-	
+
 	// Test various common BluOS endpoints
 	endpoints := []string{
 		"/Status",
-		"/SyncStatus", 
+		"/SyncStatus",
 		"/Presets",
 		"/RemoveSlave",
 		"/AddSlave",
@@ -745,7 +868,7 @@ func debugAPI() {
 		"/Reset",
 		"/ClearSlaves",
 	}
-	
+
 	var results []string
 	for _, endpoint := range endpoints {
 		_, err := tuiState.client.makeRequest(endpoint)
@@ -755,7 +878,7 @@ func debugAPI() {
 			results = append(results, fmt.Sprintf("%s: ✅", endpoint))
 		}
 	}
-	
+
 	tuiState.lastAction = fmt.Sprintf("API Test: %s", strings.Join(results, " | "))
 }
 
@@ -763,7 +886,7 @@ func debugAPI() {
 func ungroupAll() {
 	var successCount int
 	var errorMessages []string
-	
+
 	// Try removing slaves one by one using RemoveSlave
 	for _, player := range tuiState.availablePlayers {
 		if player.Name != tuiState.playerName {
@@ -773,29 +896,29 @@ func ungroupAll() {
 			} else {
 				errorMessages = append(errorMessages, fmt.Sprintf("Remove %s: %v", player.Name, err))
 			}
-			
+
 			// Also try the reverse - remove current player as slave from this one
 			otherClient := NewBluesoundClient(player.IP)
 			currentPlayerIP := strings.Split(tuiState.client.baseURL, "://")[1]
 			currentPlayerIP = strings.Split(currentPlayerIP, ":")[0]
-			
+
 			if _, err := otherClient.makeRequest(fmt.Sprintf("/RemoveSlave?slave=%s", currentPlayerIP)); err == nil {
 				successCount++
 			}
 		}
 	}
-	
+
 	// Try various standalone/reset approaches on all players
 	for _, player := range tuiState.availablePlayers {
 		client := NewBluesoundClient(player.IP)
-		
+
 		// Try various standalone/reset approaches
 		standaloneMethods := []string{
 			"/Standalone",
 			"/Reset",
 			"/ClearSlaves",
 		}
-		
+
 		for _, method := range standaloneMethods {
 			if _, err := client.makeRequest(method); err == nil {
 				successCount++
@@ -803,13 +926,13 @@ func ungroupAll() {
 			}
 		}
 	}
-	
+
 	if successCount > 0 {
 		tuiState.lastAction = getText("ungrouped_all")
 	} else {
 		tuiState.lastAction = fmt.Sprintf("%s (RemoveSlave approach failed)", getText("error_ungrouping"))
 	}
-	
+
 	updateStatus()
 }
 
@@ -833,25 +956,25 @@ func changeLanguage(lang string) {
 // Interactive loop
 func interactiveMode() {
 	reader := bufio.NewReader(os.Stdin)
-	
+
 	// Initial data load
 	updateStatus()
 	updatePresets()
-	
+
 	for {
 		renderTUI()
 		fmt.Print(getText("prompt"))
-		
+
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
-		
+
 		if input == "" {
 			continue
 		}
-		
+
 		parts := strings.Fields(input)
 		command := strings.ToLower(parts[0])
-		
+
 		switch command {
 		case "play":
 			if len(parts) > 1 {
@@ -878,7 +1001,7 @@ func interactiveMode() {
 					updateStatus()
 				}
 			}
-			
+
 		case "pause":
 			if err := tuiState.client.Pause(); err != nil {
 				tuiState.lastAction = getText("error_pausing")
@@ -886,7 +1009,7 @@ func interactiveMode() {
 				tuiState.lastAction = getText("paused")
 				updateStatus()
 			}
-			
+
 		case "stop":
 			if err := tuiState.client.Stop(); err != nil {
 				tuiState.lastAction = getText("error_stopping")
@@ -894,7 +1017,7 @@ func interactiveMode() {
 				tuiState.lastAction = getText("stopped")
 				updateStatus()
 			}
-			
+
 		case "next":
 			if err := tuiState.client.Next(); err != nil {
 				tuiState.lastAction = getText("error_next_track")
@@ -903,7 +1026,7 @@ func interactiveMode() {
 				time.Sleep(500 * time.Millisecond)
 				updateStatus()
 			}
-			
+
 		case "prev", "previous":
 			if err := tuiState.client.Previous(); err != nil {
 				tuiState.lastAction = getText("error_prev_track")
@@ -912,7 +1035,7 @@ func interactiveMode() {
 				time.Sleep(500 * time.Millisecond)
 				updateStatus()
 			}
-			
+
 		case "vol", "volume":
 			if len(parts) < 2 {
 				tuiState.lastAction = getText("volume_missing")
@@ -929,18 +1052,18 @@ func interactiveMode() {
 				tuiState.lastAction = fmt.Sprintf(getText("volume_set"), volume)
 				updateStatus()
 			}
-			
+
 		case "status":
 			updateStatus()
 			tuiState.lastAction = "Status refreshed"
-			
+
 		case "presets":
 			updatePresets()
 			tuiState.lastAction = "Presets refreshed"
-			
+
 		case "help":
 			tuiState.lastAction = "Help displayed above"
-			
+
 		case "output":
 			if len(parts) < 2 {
 				tuiState.lastAction = getText("invalid_player_id")
@@ -952,32 +1075,32 @@ func interactiveMode() {
 				continue
 			}
 			switchToPlayer(playerID)
-			
+
 		case "group":
 			if len(parts) < 2 {
 				tuiState.lastAction = getText("invalid_group_format")
 				continue
 			}
 			groupPlayers(parts[1])
-			
+
 		case "ungroup":
 			ungroupAll()
-			
+
 		case "debug":
 			debugAPI()
-			
+
 		case "lang", "language":
 			if len(parts) < 2 {
 				tuiState.lastAction = getText("invalid_language")
 				continue
 			}
 			changeLanguage(parts[1])
-			
+
 		case "quit", "exit":
 			clearScreen()
 			fmt.Println(getText("goodbye"))
 			return
-			
+
 		default:
 			tuiState.lastAction = fmt.Sprintf(getText("unknown_command"), command)
 		}
