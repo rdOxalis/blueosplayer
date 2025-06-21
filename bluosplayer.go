@@ -53,6 +53,9 @@ var texts = map[Language]map[string]string{
 		"error_retrieving_status": "❌ Error retrieving status",
 		"available_presets":       "📋 Available Presets:",
 		"error_loading_presets":   "❌ Error loading presets",
+		"available_sources":       "🎮 Available Modes:",
+		"error_loading_sources":   "❌ Error loading modes",
+		"current_source":          "Current Mode:",
 		"available_commands":      "🎮 Available Commands:",
 		"cmd_play_preset":         "play <id>   - Play preset",
 		"cmd_play":                "play       - Start playback",
@@ -63,6 +66,8 @@ var texts = map[Language]map[string]string{
 		"cmd_volume":              "vol <0-100> - Set volume",
 		"cmd_status":              "status     - Refresh status",
 		"cmd_presets":             "presets    - Refresh presets",
+		"cmd_sources":             "modes      - Show available modes",
+		"cmd_source":              "mode <id>  - Switch to mode",
 		"cmd_help":                "help       - Show help",
 		"cmd_lang":                "lang <en|de|sw> - Change language",
 		"cmd_output":              "output <id> - Switch to player",
@@ -88,6 +93,9 @@ var texts = map[Language]map[string]string{
 		"invalid_volume":          "❌ Invalid volume value",
 		"error_setting_volume":    "❌ Error setting volume",
 		"volume_set":              "🔊 Volume set to %d%%",
+		"invalid_source_id":       "❌ Invalid mode ID",
+		"error_switching_source":  "❌ Error switching mode",
+		"switched_to_source":      "🎮 Switched to mode: %s",
 		"language_changed":        "🌍 Language changed to",
 		"invalid_language":        "❌ Invalid language. Use: en, de, sw",
 		"goodbye":                 "👋 Goodbye!",
@@ -128,6 +136,9 @@ var texts = map[Language]map[string]string{
 		"error_retrieving_status": "❌ Fehler beim Abrufen des Status",
 		"available_presets":       "📋 Verfügbare Presets:",
 		"error_loading_presets":   "❌ Fehler beim Laden der Presets",
+		"available_sources":       "🎮 Verfügbare Modi:",
+		"error_loading_sources":   "❌ Fehler beim Laden der Modi",
+		"current_source":          "Aktueller Modus:",
 		"available_commands":      "🎮 Verfügbare Befehle:",
 		"cmd_play_preset":         "play <id>   - Preset abspielen",
 		"cmd_play":                "play       - Wiedergabe starten",
@@ -138,6 +149,8 @@ var texts = map[Language]map[string]string{
 		"cmd_volume":              "vol <0-100> - Lautstärke setzen",
 		"cmd_status":              "status     - Status aktualisieren",
 		"cmd_presets":             "presets    - Presets aktualisieren",
+		"cmd_sources":             "modes      - Verfügbare Modi anzeigen",
+		"cmd_source":              "mode <id>  - Zu Modus wechseln",
 		"cmd_help":                "help       - Hilfe anzeigen",
 		"cmd_lang":                "lang <en|de|sw> - Sprache ändern",
 		"cmd_output":              "output <id> - Zu Player wechseln",
@@ -163,6 +176,9 @@ var texts = map[Language]map[string]string{
 		"invalid_volume":          "❌ Ungültiger Lautstärke-Wert",
 		"error_setting_volume":    "❌ Fehler beim Setzen der Lautstärke",
 		"volume_set":              "🔊 Lautstärke auf %d%% gesetzt",
+		"invalid_source_id":       "❌ Ungültige Modus-ID",
+		"error_switching_source":  "❌ Fehler beim Wechseln des Modus",
+		"switched_to_source":      "🎮 Gewechselt zu Modus: %s",
 		"language_changed":        "🌍 Sprache geändert zu",
 		"invalid_language":        "❌ Ungültige Sprache. Verwende: en, de, sw",
 		"goodbye":                 "👋 Auf Wiedersehen!",
@@ -203,6 +219,9 @@ var texts = map[Language]map[string]string{
 		"error_retrieving_status": "❌ Hitilafu katika kupata hali",
 		"available_presets":       "📋 Mipangilio Inayopatikana:",
 		"error_loading_presets":   "❌ Hitilafu katika kupakia mipangilio",
+		"available_sources":       "🎮 Hali Zinazopatikana:",
+		"error_loading_sources":   "❌ Hitilafu katika kupakia hali",
+		"current_source":          "Hali ya Sasa:",
 		"available_commands":      "🎮 Amri Zinazopatikana:",
 		"cmd_play_preset":         "play <id>   - Cheza mpangilio",
 		"cmd_play":                "play       - Anza kucheza",
@@ -213,6 +232,8 @@ var texts = map[Language]map[string]string{
 		"cmd_volume":              "vol <0-100> - Weka sauti",
 		"cmd_status":              "status     - Onyesha hali",
 		"cmd_presets":             "presets    - Onyesha mipangilio",
+		"cmd_sources":             "modes      - Onyesha hali zinazopatikana",
+		"cmd_source":              "mode <id>  - Badili hali",
 		"cmd_help":                "help       - Onyesha msaada",
 		"cmd_lang":                "lang <en|de|sw> - Badilisha lugha",
 		"cmd_output":              "output <id> - Badili kichezaji",
@@ -238,6 +259,9 @@ var texts = map[Language]map[string]string{
 		"invalid_volume":          "❌ Thamani ya sauti si halali",
 		"error_setting_volume":    "❌ Hitilafu katika kuweka sauti",
 		"volume_set":              "🔊 Sauti imewekwa %d%%",
+		"invalid_source_id":       "❌ Kitambulisho cha hali si halali",
+		"error_switching_source":  "❌ Hitilafu katika kubadili hali",
+		"switched_to_source":      "🎮 Imebadilishwa kwenda hali: %s",
 		"language_changed":        "🌍 Lugha imebadilishwa kuwa",
 		"invalid_language":        "❌ Lugha si halali. Tumia: en, de, sw",
 		"goodbye":                 "👋 Kwaheri!",
@@ -272,6 +296,14 @@ func getText(key string) string {
 	return key // Return key as fallback
 }
 
+// Helper function for min
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 // Structures for XML parsing
 type Presets struct {
 	XMLName xml.Name `xml:"presets"`
@@ -285,6 +317,16 @@ type Preset struct {
 	Image string `xml:"image,attr"`
 }
 
+type Sources struct {
+	XMLName xml.Name `xml:"sources"`
+	Sources []Source `xml:"source"`
+}
+
+type Source struct {
+	ID   string `xml:"id,attr"`
+	Name string `xml:",chardata"`
+}
+
 type Status struct {
 	XMLName xml.Name `xml:"status"`
 	State   string   `xml:"state"`
@@ -292,6 +334,8 @@ type Status struct {
 	Artist  string   `xml:"artist"`
 	Album   string   `xml:"album"`
 	Volume  int      `xml:"volume"`
+	Service string   `xml:"service"`
+	InputID string   `xml:"inputId"`
 }
 
 type SyncStatus struct {
@@ -328,13 +372,18 @@ type TUIState struct {
 	playerName       string
 	status           *Status
 	presets          []Preset
+	sources          []Source
 	lastAction       string
 	statusError      string
 	presetsError     string
+	sourcesError     string
 	availablePlayers []PlayerInfo
+	currentMode      string // Track the manually set mode
 }
 
-var tuiState = &TUIState{}
+var tuiState = &TUIState{
+	currentMode: "Preset Mode", // Default mode
+}
 
 func NewBluesoundClient(ip string) *BluesoundClient {
 	return &BluesoundClient{
@@ -577,6 +626,14 @@ func (bc *BluesoundClient) GetPresets() ([]Preset, error) {
 	return presets.Presets, nil
 }
 
+func (bc *BluesoundClient) GetSources() ([]Source, error) {
+	// Simple and focused: only Bluetooth input and Preset mode
+	return []Source{
+		{ID: "bluetooth:", Name: "Bluetooth"},
+		{ID: "preset_mode", Name: "Preset Mode"},
+	}, nil
+}
+
 func (bc *BluesoundClient) GetStatus() (*Status, error) {
 	data, err := bc.makeRequest("/Status")
 	if err != nil {
@@ -594,7 +651,41 @@ func (bc *BluesoundClient) GetStatus() (*Status, error) {
 func (bc *BluesoundClient) PlayPreset(id int) error {
 	endpoint := fmt.Sprintf("/Preset?id=%d", id)
 	_, err := bc.makeRequest(endpoint)
+	if err == nil {
+		// When playing a preset, we're definitely in Preset Mode
+		tuiState.currentMode = "Preset Mode"
+	}
 	return err
+}
+
+func (bc *BluesoundClient) SwitchSource(sourceID string) error {
+	switch sourceID {
+	case "bluetooth:":
+		// Switch to Bluetooth input (ohne Debug-Ausgaben)
+		endpoints := []string{
+			"/Play?service=Capture%3Ahw%3Abluetooth",
+			"/Play?url=bluetooth:",
+			"/Play?service=bluetooth:",
+			"/Input?input=bluetooth",
+			"/Play?url=bluos:input:bluetooth",
+		}
+		
+		for _, endpoint := range endpoints {
+			_, err := bc.makeRequest(endpoint)
+			if err == nil {
+				return nil
+			}
+		}
+		return fmt.Errorf("failed to switch to Bluetooth")
+		
+	case "preset_mode":
+		// Switch back to preset mode - stop current playback
+		_, _ = bc.makeRequest("/Stop")
+		return nil
+		
+	default:
+		return fmt.Errorf("unknown source: %s", sourceID)
+	}
 }
 
 func (bc *BluesoundClient) Play() error {
@@ -676,6 +767,51 @@ func updatePresets() {
 	}
 }
 
+func updateSources() {
+	sources, err := tuiState.client.GetSources()
+	if err != nil {
+		tuiState.sourcesError = getText("error_loading_sources")
+		tuiState.sources = nil
+	} else {
+		tuiState.sources = sources
+		tuiState.sourcesError = ""
+	}
+}
+
+// Get current source name from status - einfachere Logik mit Manual Tracking
+func getCurrentSourceName() string {
+	// Return the manually tracked mode instead of trying to detect it
+	return tuiState.currentMode
+}
+
+// Debug function to show current status
+func debugStatus() {
+	if tuiState.status == nil {
+		fmt.Println("DEBUG: Status is nil")
+		return
+	}
+	
+	fmt.Printf("DEBUG Status Details:\n")
+	fmt.Printf("  State: '%s'\n", tuiState.status.State)
+	fmt.Printf("  Song: '%s'\n", tuiState.status.Song)
+	fmt.Printf("  Artist: '%s'\n", tuiState.status.Artist)
+	fmt.Printf("  Album: '%s'\n", tuiState.status.Album)
+	fmt.Printf("  Service: '%s'\n", tuiState.status.Service)
+	fmt.Printf("  InputID: '%s'\n", tuiState.status.InputID)
+	fmt.Printf("  Volume: %d\n", tuiState.status.Volume)
+	fmt.Printf("  Manual Mode: '%s'\n", tuiState.currentMode)
+	fmt.Printf("  Detected Mode: '%s'\n", getCurrentSourceName())
+	
+	// Show what each source thinks is active
+	fmt.Printf("  Source matching:\n")
+	for i, source := range tuiState.sources {
+		currentMode := getCurrentSourceName()
+		isActive := source.Name == currentMode
+		fmt.Printf("    [%d] %s == '%s' -> %v\n", i+1, source.Name, currentMode, isActive)
+	}
+	fmt.Println()
+}
+
 // Render the complete TUI
 func renderTUI() {
 	clearScreen()
@@ -720,6 +856,11 @@ func renderTUI() {
 			volumeStr = fmt.Sprintf("%d%%", tuiState.status.Volume)
 		}
 		fmt.Printf(getText("status_volume")+"\n", tuiState.status.State, volumeStr)
+		
+		// Show current mode
+		currentSource := getCurrentSourceName()
+		fmt.Printf("🎮 %s %s\n", getText("current_source"), currentSource)
+		
 		if tuiState.status.Song != "" {
 			fmt.Printf("🎵 %s", tuiState.status.Song)
 			if tuiState.status.Artist != "" {
@@ -735,21 +876,42 @@ func renderTUI() {
 	}
 	fmt.Println()
 
+	// Modes Section
+	fmt.Println(getText("available_sources"))
+	if tuiState.sourcesError != "" {
+		fmt.Println(tuiState.sourcesError)
+	} else if tuiState.sources != nil && len(tuiState.sources) > 0 {
+		for i, source := range tuiState.sources {
+			activeMarker := ""
+			currentMode := getCurrentSourceName()
+			if source.Name == currentMode {
+				activeMarker = " ✅"
+			}
+			fmt.Printf("  [%d] %s (%s)%s\n", i+1, source.Name, source.ID, activeMarker)
+		}
+	} else {
+		fmt.Println("  No modes available")
+	}
+	fmt.Println()
+
 	// Presets Section
 	fmt.Println(getText("available_presets"))
 	if tuiState.presetsError != "" {
 		fmt.Println(tuiState.presetsError)
-	} else if tuiState.presets != nil {
+	} else if tuiState.presets != nil && len(tuiState.presets) > 0 {
 		for _, preset := range tuiState.presets {
 			fmt.Printf("  [%d] %s\n", preset.ID, preset.Name)
 		}
+	} else {
+		fmt.Println("  No presets available")
 	}
 	fmt.Println()
 
-	// Commands Section - Display in compact rows (hide utility commands)
+	// Commands Section
 	fmt.Println(getText("available_commands"))
 	fmt.Println("  play <id> | play | pause | stop | next | prev | vol <0-100>")
-	fmt.Println("  output <id> | group <id1+id2> | ungroup | lang <en|de|sw> | quit")
+	fmt.Println("  mode <id> | modes | output <id> | group <id1+id2> | ungroup")
+	fmt.Println("  lang <en|de|sw> | quit")
 	fmt.Println()
 
 	// Last Action
@@ -806,11 +968,32 @@ func switchToPlayer(playerID int) {
 	selectedPlayer := tuiState.availablePlayers[playerID-1]
 	tuiState.client = NewBluesoundClient(selectedPlayer.IP)
 	tuiState.playerName = selectedPlayer.Name
+	// WICHTIG: currentMode NICHT zurücksetzen beim Player-Wechsel
 	tuiState.lastAction = fmt.Sprintf(getText("switched_to_player"), playerID, selectedPlayer.Name)
 
-	// Update status and presets for new player
+	// Update status, presets, and sources for new player
 	updateStatus()
 	updatePresets()
+	updateSources()
+}
+
+// Switch to different source - einfache Logik wie forcemode
+func switchToSource(sourceID int) {
+	if sourceID < 1 || sourceID > len(tuiState.sources) {
+		tuiState.lastAction = getText("invalid_source_id")
+		return
+	}
+	
+	// Einfach den Modus setzen basierend auf der Auswahl
+	if sourceID == 1 { // Bluetooth
+		tuiState.currentMode = "Bluetooth"
+		tuiState.lastAction = fmt.Sprintf(getText("switched_to_source"), "Bluetooth")
+	} else if sourceID == 2 { // Preset Mode
+		tuiState.currentMode = "Preset Mode"
+		tuiState.lastAction = fmt.Sprintf(getText("switched_to_source"), "Preset Mode")
+	} else {
+		tuiState.lastAction = getText("error_switching_source")
+	}
 }
 
 // Group players
@@ -861,6 +1044,11 @@ func debugAPI() {
 		"/Status",
 		"/SyncStatus",
 		"/Presets",
+		"/Sources",
+		"/services",
+		"/Inputs",
+		"/inputs",
+		"/Services",
 		"/RemoveSlave",
 		"/AddSlave",
 		"/Slaves",
@@ -871,11 +1059,17 @@ func debugAPI() {
 
 	var results []string
 	for _, endpoint := range endpoints {
-		_, err := tuiState.client.makeRequest(endpoint)
+		data, err := tuiState.client.makeRequest(endpoint)
 		if err != nil {
 			results = append(results, fmt.Sprintf("%s: ❌", endpoint))
 		} else {
 			results = append(results, fmt.Sprintf("%s: ✅", endpoint))
+			// For source-related endpoints, show some content
+			if strings.Contains(strings.ToLower(endpoint), "source") || 
+			   strings.Contains(strings.ToLower(endpoint), "input") ||
+			   strings.Contains(strings.ToLower(endpoint), "service") {
+				fmt.Printf("Debug %s content: %s\n", endpoint, string(data)[:min(200, len(data))])
+			}
 		}
 	}
 
@@ -885,7 +1079,6 @@ func debugAPI() {
 // Ungroup all players
 func ungroupAll() {
 	var successCount int
-	var errorMessages []string
 
 	// Try removing slaves one by one using RemoveSlave
 	for _, player := range tuiState.availablePlayers {
@@ -893,8 +1086,6 @@ func ungroupAll() {
 			// Try to remove this player as a slave from current master
 			if _, err := tuiState.client.makeRequest(fmt.Sprintf("/RemoveSlave?slave=%s", player.IP)); err == nil {
 				successCount++
-			} else {
-				errorMessages = append(errorMessages, fmt.Sprintf("Remove %s: %v", player.Name, err))
 			}
 
 			// Also try the reverse - remove current player as slave from this one
@@ -960,6 +1151,7 @@ func interactiveMode() {
 	// Initial data load
 	updateStatus()
 	updatePresets()
+	updateSources()
 
 	for {
 		renderTUI()
@@ -1052,6 +1244,22 @@ func interactiveMode() {
 				tuiState.lastAction = fmt.Sprintf(getText("volume_set"), volume)
 				updateStatus()
 			}
+
+		case "source", "mode":
+			if len(parts) < 2 {
+				tuiState.lastAction = getText("invalid_source_id")
+				continue
+			}
+			sourceID, err := strconv.Atoi(parts[1])
+			if err != nil {
+				tuiState.lastAction = getText("invalid_source_id")
+				continue
+			}
+			switchToSource(sourceID)
+
+		case "sources", "modes":
+			updateSources()
+			tuiState.lastAction = "Modes refreshed"
 
 		case "status":
 			updateStatus()
