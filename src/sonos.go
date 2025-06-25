@@ -111,72 +111,154 @@ func (sc *SonosClient) loadFavorites() error {
 	// Force clear cache to reload
 	sc.favorites = nil
 
-	// Try to get actual Sonos favorites using ContentDirectory with MediaServer path
-	body := `<u:Browse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">
-		<ObjectID>FV:2</ObjectID>
+	// First, try to get Sonos Radio favorites (R:0/0)
+	radioFavorites := sc.browseSonosRadioStations()
+
+	if len(radioFavorites) > 0 {
+		sc.favorites = radioFavorites
+		return nil
+	}
+
+	// If no radio favorites found, create informative entry
+	sc.favorites = []SonosFavorite{
+		{ID: 1, Name: "[INFO] No Sonos Radio favorites found", URI: "", Meta: ""},
+		{ID: 2, Name: "[INFO] Add radio stations in the Sonos app", URI: "", Meta: ""},
+	}
+
+	return nil
+}
+
+func (sc *SonosClient) browseSonosRadioStations() []SonosFavorite {
+	var allRadioFavorites []SonosFavorite
+
+	// Try different ObjectIDs for Sonos Radio stations
+	radioObjectIDs := []struct {
+		id   string
+		name string
+	}{
+		{"R:0/0", "Sonos Radio"},
+		{"R:0/1", "Radio Stations"},
+		{"FV:2", "Favorites"}, // Sometimes radio stations are in general favorites
+		{"A:RADIO", "Radio"},
+		{"SQ:", "Sonos Favorites"},
+	}
+
+	for _, obj := range radioObjectIDs {
+		favorites := sc.browseForRadioContent(obj.id)
+
+		// Filter to only include radio stations
+		for _, fav := range favorites {
+			if sc.isRadioStation(fav) {
+				// Check if not already in the list
+				isDuplicate := false
+				for _, existing := range allRadioFavorites {
+					if existing.URI == fav.URI || existing.Name == fav.Name {
+						isDuplicate = true
+						break
+					}
+				}
+				if !isDuplicate {
+					allRadioFavorites = append(allRadioFavorites, fav)
+				}
+			}
+		}
+	}
+
+	// Re-number the favorites
+	for i := range allRadioFavorites {
+		allRadioFavorites[i].ID = i + 1
+	}
+
+	return allRadioFavorites
+}
+
+func (sc *SonosClient) browseForRadioContent(objectID string) []SonosFavorite {
+	body := fmt.Sprintf(`<u:Browse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">
+		<ObjectID>%s</ObjectID>
 		<BrowseFlag>BrowseDirectChildren</BrowseFlag>
-		<Filter>dc:title,res,dc:creator,upnp:artist,upnp:album</Filter>
+		<Filter>*</Filter>
 		<StartingIndex>0</StartingIndex>
 		<RequestedCount>100</RequestedCount>
 		<SortCriteria></SortCriteria>
-	</u:Browse>`
+	</u:Browse>`, objectID)
 
 	soapEnvelope := fmt.Sprintf(`<?xml version="1.0"?>
 <s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
 <s:Body>%s</s:Body>
 </s:Envelope>`, body)
 
-	// Try MediaServer path first
+	// Try MediaServer path
 	url := fmt.Sprintf("%s/MediaServer/ContentDirectory/Control", sc.baseURL)
 	req, err := http.NewRequest("POST", url, strings.NewReader(soapEnvelope))
-
-	if err == nil {
-		req.Header.Set("Content-Type", "text/xml; charset=utf-8")
-		req.Header.Set("SOAPAction", `"urn:schemas-upnp-org:service:ContentDirectory:1#Browse"`)
-		req.Header.Set("Content-Length", fmt.Sprintf("%d", len(soapEnvelope)))
-
-		resp, err := sc.client.Do(req)
-		if err == nil && resp.StatusCode == http.StatusOK {
-			defer resp.Body.Close()
-			data, err := io.ReadAll(resp.Body)
-			if err == nil {
-				radioFavorites := sc.parseFavoritesFromResponse(string(data))
-				if len(radioFavorites) > 0 {
-					// Remove duplicates
-					uniqueFavorites := sc.removeDuplicateFavorites(radioFavorites)
-					sc.favorites = uniqueFavorites
-					return nil
-				}
-			}
-		}
-		if resp != nil {
-			resp.Body.Close()
-		}
+	if err != nil {
+		return []SonosFavorite{}
 	}
 
-	// Fallback: Create informative entries
-	sc.favorites = []SonosFavorite{
-		{ID: 1, Name: "[INFO] Could not load Sonos radio favorites", URI: "", Meta: ""},
-		{ID: 2, Name: "[INFO] Check ContentDirectory service", URI: "", Meta: ""},
+	req.Header.Set("Content-Type", "text/xml; charset=utf-8")
+	req.Header.Set("SOAPAction", `"urn:schemas-upnp-org:service:ContentDirectory:1#Browse"`)
+	req.Header.Set("Content-Length", fmt.Sprintf("%d", len(soapEnvelope)))
+
+	resp, err := sc.client.Do(req)
+	if err != nil {
+		return []SonosFavorite{}
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return []SonosFavorite{}
 	}
 
-	return nil
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return []SonosFavorite{}
+	}
+
+	return sc.parseFavoritesFromResponse(string(data))
 }
 
-func (sc *SonosClient) removeDuplicateFavorites(favorites []SonosFavorite) []SonosFavorite {
-	seen := make(map[string]bool)
-	var unique []SonosFavorite
+func (sc *SonosClient) isRadioStation(fav SonosFavorite) bool {
+	// Check URI patterns that indicate radio stations
+	radioPatterns := []string{
+		"x-sonosapi-stream:",
+		"x-sonosapi-radio:",
+		"x-rincon-mp3radio:",
+		"http://", // Many radio stations use direct HTTP streams
+		"https://",
+		"mms://",
+		"rtsp://",
+		"x-sonos-http:",
+	}
 
-	for _, fav := range favorites {
-		key := fav.Name + "|" + fav.URI
-		if !seen[key] {
-			seen[key] = true
-			fav.ID = len(unique) + 1 // Re-number
-			unique = append(unique, fav)
+	for _, pattern := range radioPatterns {
+		if strings.HasPrefix(fav.URI, pattern) {
+			return true
 		}
 	}
 
-	return unique
+	// Check metadata for radio-related classes
+	if strings.Contains(fav.Meta, "object.item.audioItem.audioBroadcast") ||
+		strings.Contains(fav.Meta, "object.item.audioItem.radio") ||
+		strings.Contains(fav.Meta, "radioBroadcast") {
+		return true
+	}
+
+	// Check if the name suggests it's a radio station
+	radioNamePatterns := []string{
+		"Radio",
+		"FM",
+		"AM",
+		"Stream",
+		"Live",
+	}
+
+	nameLower := strings.ToLower(fav.Name)
+	for _, pattern := range radioNamePatterns {
+		if strings.Contains(nameLower, strings.ToLower(pattern)) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (sc *SonosClient) parseFavoritesFromResponse(xmlResponse string) []SonosFavorite {
@@ -202,7 +284,6 @@ func (sc *SonosClient) parseFavoritesFromResponse(xmlResponse string) []SonosFav
 
 	for i, item := range items {
 		if len(item) > 2 {
-			// itemID := item[1]  // commented out - unused variable
 			itemContent := item[2]
 
 			var title, uri string
@@ -223,96 +304,6 @@ func (sc *SonosClient) parseFavoritesFromResponse(xmlResponse string) []SonosFav
 					Meta: itemContent,
 				})
 			}
-		}
-	}
-
-	return favorites
-}
-
-func (sc *SonosClient) browseSonosContent(objectID, categoryName string) []SonosFavorite {
-	// Browse content using ContentDirectory service
-	body := fmt.Sprintf(`<u:Browse xmlns:u="urn:schemas-upnp-org:service:ContentDirectory:1">
-		<ObjectID>%s</ObjectID>
-		<BrowseFlag>BrowseDirectChildren</BrowseFlag>
-		<Filter>*</Filter>
-		<StartingIndex>0</StartingIndex>
-		<RequestedCount>50</RequestedCount>
-		<SortCriteria></SortCriteria>
-	</u:Browse>`, objectID)
-
-	data, err := sc.makeSoapRequest("Browse", "ContentDirectory", body)
-	if err != nil {
-		return []SonosFavorite{}
-	}
-
-	var response SonosGetPositionInfoResponse
-	if err := xml.Unmarshal(data, &response); err != nil {
-		return []SonosFavorite{}
-	}
-
-	// Parse the DIDL-Lite XML in the Result field
-	resultXML := response.Body.Browse.Result
-
-	// Extract favorites from DIDL-Lite format
-	favorites := parseSonosFavorites(resultXML)
-
-	// Add category prefix to names for clarity
-	for i := range favorites {
-		if categoryName != "" && len(favorites) > 0 {
-			// Only add prefix if we found items and it's not the main category
-			if objectID != "FV:2" {
-				favorites[i].Name = fmt.Sprintf("[%s] %s", categoryName, favorites[i].Name)
-			}
-		}
-	}
-
-	return favorites
-}
-
-func parseSonosFavorites(didlXML string) []SonosFavorite {
-	var favorites []SonosFavorite
-
-	// Enhanced regex patterns for better DIDL-Lite parsing
-	itemRegex := regexp.MustCompile(`<item[^>]*id="([^"]*)"[^>]*>(.*?)</item>`)
-	titleRegex := regexp.MustCompile(`<dc:title[^>]*>(.*?)</dc:title>`)
-	resRegex := regexp.MustCompile(`<res[^>]*>(.*?)</res>`)
-
-	items := itemRegex.FindAllStringSubmatch(didlXML, -1)
-
-	for i, item := range items {
-		if len(item) > 2 {
-			itemID := item[1]
-			itemContent := item[2]
-
-			var title, uri string
-
-			if titleMatch := titleRegex.FindStringSubmatch(itemContent); len(titleMatch) > 1 {
-				title = html.UnescapeString(titleMatch[1])
-			}
-
-			if resMatch := resRegex.FindStringSubmatch(itemContent); len(resMatch) > 1 {
-				uri = html.UnescapeString(resMatch[1])
-			}
-
-			// Skip empty or invalid items
-			if title == "" {
-				continue
-			}
-
-			// Clean up title
-			title = strings.TrimSpace(title)
-
-			// Use item ID as URI fallback if no res found
-			if uri == "" && itemID != "" {
-				uri = itemID
-			}
-
-			favorites = append(favorites, SonosFavorite{
-				ID:   i + 1,
-				Name: title,
-				URI:  uri,
-				Meta: itemContent,
-			})
 		}
 	}
 
@@ -691,7 +682,7 @@ func (sc *SonosClient) DebugAPI() string {
 	// Add favorite discovery debug info
 	sc.favorites = nil // Clear cache to force reload
 	sc.loadFavorites()
-	results = append(results, fmt.Sprintf("Favorites: %d found", len(sc.favorites)))
+	results = append(results, fmt.Sprintf("Radio Favorites: %d found", len(sc.favorites)))
 
 	return fmt.Sprintf("Sonos Debug: %s", strings.Join(results, " | "))
 }

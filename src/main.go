@@ -88,6 +88,7 @@ func renderTUI() {
 			}
 			fmt.Printf("  [%d] %s (%s)%s%s\n", i+1, player.Name, player.IP, typeIndicator, activeMarker)
 		}
+		fmt.Println()
 
 		// Show possible group combinations (only for compatible devices)
 		if len(tuiState.availablePlayers) > 1 {
@@ -117,9 +118,9 @@ func renderTUI() {
 			if tuiState.status.Artist != "" {
 				fmt.Printf(" - %s", tuiState.status.Artist)
 			}
-			if tuiState.status.Album != "" {
-				fmt.Printf(" (%s)", tuiState.status.Album)
-			}
+			//if tuiState.status.Album != "" {
+			//	fmt.Printf(" (%s)", tuiState.status.Album)
+			//}
 			fmt.Println()
 		} else {
 			fmt.Printf("🎵 %s\n", getText("no_song_playing"))
