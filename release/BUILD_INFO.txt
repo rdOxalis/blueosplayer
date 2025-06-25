@@ -1,0 +1,11 @@
+Build date: Mi 25. Jun 06:11:09 CEST 2025
+Git commit: 042181e
+
+Platforms built:
+  - bluosplayer-apple-amd64
+  - bluosplayer-apple-arm64
+  - bluosplayer-linux-amd64
+  - bluosplayer-linux-arm64
+  - bluosplayer-linux-armv6
+  - bluosplayer-linux-armv7
+  - bluosplayer-win-amd64.exe
