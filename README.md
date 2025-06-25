@@ -1,10 +1,10 @@
-# 🎵 BluOS Player for Bluesound Devices
+# 🎵 Multi-Room Player for Bluesound and Sonos Devices
 
-A BluOS preset player for the command line with multi-language support and automatic network scanning.
+A Multi-Room preset player for the command line with multi-language support and automatic network scanning.
 
 ## ✨ Features
 
-- 🔍 **Automatic Network Scanning** - Finds all BluOS players on your network
+- 🔍 **Automatic Network Scanning** - Finds all BlueSound players on your network
 - 🌍 **Multi-Language Support** - English, German, and Swahili
 - 🎮 **Interactive Control** - Simple command-line interface
 - 📱 **Multiple Player Support** - Choose from detected players
@@ -15,29 +15,30 @@ A BluOS preset player for the command line with multi-language support and autom
 1. **Clone this repository:**
    ```bash
    git clone <repository-url>
-   cd bluosplayer
+   cd bluesoundplayer/src
    ```
 
 2. **Build the application:**
    ```bash
-   go build bluosplayer.go
+   go build -o bluesoundplyer *.go
    ```
 
 ## 🚀 Usage
 
 1. **Start the application:**
    ```bash
-   ./bluosplayer
+   ./bluesoundplayer
    ```
 
 2. **Select a player:**  
-   The app will automatically scan your network and show available BluOS players:
+   The app will automatically scan your network and show available players:
    ```
    📱 Available Players:
-     [1] Living Room Speaker (Bluesound Node) - 192.168.1.100
-     [2] Kitchen Speaker (Bluesound Pulse) - 192.168.1.101
+     [1] Living Room Speaker (Bluesound Node) - 192.168.1.100 [BlueSound]
+     [2] Kitchen Speaker (Bluesound Pulse) - 192.168.1.101 [BlueSound]
+     [3] Sonos Play:3 (Sonos Sonos Play:3) - 192.168.1.102 [Sonos]
    
-   Select a player (1-2): 1
+   Select a player (1-3): 1
    ```
 
 3. **Use interactive commands:**  
@@ -74,9 +75,9 @@ Switch between languages anytime during operation:
 ## 📝 Example Session
 
 ```
-🎵 BluOS Controller
-====================
-🔍 Scanning network for BluOS players...
+🎵 Multi-Room Audio Controller
+===========================================================
+🔍 Scanning network for BlueSound players...
    Scanning network: 192.168.1
    ✅ Found: Living Room (Node 2i) at 192.168.1.100
 
@@ -86,8 +87,8 @@ Switch between languages anytime during operation:
 Select a player (1-1): 1
 ✅ Connected to: Living Room (192.168.1.100)
 
-🎵 BluOS Controller - Interactive Mode
-=======================================
+🎵 Multi-Room Audio Controller - Interactive Mode
+===========================================================
 
 📊 Status: stop | Volume: 50%
 
@@ -101,28 +102,28 @@ Select a player (1-1): 1
   play              - Start playback
   ...
 
-BluOS> play 1
+Command> play 1
 ✅ Playing preset 1
 
 📊 Status: stream | Volume: 50%
 🎵 Great Song - Amazing Artist (Awesome Album)
 
-BluOS> lang de
+Command> lang de
 🌍 Sprache geändert zu Deutsch
 
-BluOS> help
+Command> help
 🎮 Verfügbare Befehle:
   play <preset_id>  - Preset abspielen
   ...
 
-BluOS> quit
+Command> quit
 👋 Auf Wiedersehen!
 ```
 
 ## 🔧 Requirements
 
 - Go 1.19 or higher
-- BluOS-compatible device on the same network
+- BlueSound-compatible device on the same network
 - Network access to scan for devices
 
 ## 🤝 Contributing

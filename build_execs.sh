@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Build script for bluosplayer
+# Build script for bluesoundplayer
 # Builds executables for multiple platforms
 
 # Colors for output
@@ -18,7 +18,7 @@ fi
 
 # Clean old builds
 echo -e "${YELLOW}Cleaning old builds...${NC}"
-rm -f release/bluosplayer-*
+rm -f release/bluesoundplayer-*
 
 # Change to source directory
 cd src
@@ -32,7 +32,7 @@ for file in "${required_files[@]}"; do
     fi
 done
 
-echo -e "${GREEN}Building bluosplayer for multiple platforms...${NC}"
+echo -e "${GREEN}Building bluesoundplayer for multiple platforms...${NC}"
 echo ""
 
 # Function to build for a specific platform
@@ -59,20 +59,20 @@ build_platform() {
 }
 
 # Build for all platforms
-build_platform "linux" "amd64" "bluosplayer-linux-amd64" "Linux amd64"
-build_platform "windows" "amd64" "bluosplayer-win-amd64.exe" "Windows amd64"
-build_platform "linux" "arm" "bluosplayer-linux-armv6" "Raspberry Pi 1/Zero/Zero W (ARMv6)"
-build_platform "linux" "arm" "bluosplayer-linux-armv7" "Raspberry Pi 2/3/4/Zero 2 W (ARMv7)"
-build_platform "linux" "arm64" "bluosplayer-linux-arm64" "Raspberry Pi 4/5 (ARM64)"
-build_platform "darwin" "arm64" "bluosplayer-apple-arm64" "Apple Silicon (M1/M2/M3)"
-build_platform "darwin" "amd64" "bluosplayer-apple-amd64" "Intel Mac"
+build_platform "linux" "amd64" "bluesoundplayer-linux-amd64" "Linux amd64"
+build_platform "windows" "amd64" "bluesoundplayer-win-amd64.exe" "Windows amd64"
+build_platform "linux" "arm" "bluesoundplayer-linux-armv6" "Raspberry Pi 1/Zero/Zero W (ARMv6)"
+build_platform "linux" "arm" "bluesoundplayer-linux-armv7" "Raspberry Pi 2/3/4/Zero 2 W (ARMv7)"
+build_platform "linux" "arm64" "bluesoundplayer-linux-arm64" "Raspberry Pi 4/5 (ARM64)"
+build_platform "darwin" "arm64" "bluesoundplayer-apple-arm64" "Apple Silicon (M1/M2/M3)"
+build_platform "darwin" "amd64" "bluesoundplayer-apple-amd64" "Intel Mac"
 
 # Return to project root
 cd ..
 
 # Show results
 echo -e "${GREEN}Build complete! Executables are in the 'release' directory:${NC}"
-ls -la release/bluosplayer-*
+ls -la release/bluesoundplayer-*
 
 # Create version info file
 echo -e "\n${YELLOW}Creating version info...${NC}"
@@ -80,6 +80,6 @@ echo "Build date: $(date)" > release/BUILD_INFO.txt
 echo "Git commit: $(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')" >> release/BUILD_INFO.txt
 echo "" >> release/BUILD_INFO.txt
 echo "Platforms built:" >> release/BUILD_INFO.txt
-ls release/bluosplayer-* | sed 's/release\//  - /' >> release/BUILD_INFO.txt
+ls release/bluesoundplayer-* | sed 's/release\//  - /' >> release/BUILD_INFO.txt
 
 echo -e "${GREEN}Done!${NC}"

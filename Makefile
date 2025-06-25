@@ -1,8 +1,8 @@
-# Makefile for bluosplayer
+# Makefile for bluesoundplayer
 # Multi-platform build system
 
 # Variables
-BINARY_NAME = bluosplayer
+BINARY_NAME = bluesoundplayer
 SRC_DIR = src
 RELEASE_DIR = release
 SOURCE_FILES = $(SRC_DIR)/*.go
@@ -93,7 +93,7 @@ list:
 # Run locally (development)
 .PHONY: run
 run:
-	@echo "🚀 Running bluosplayer..."
+	@echo "🚀 Running bluesoundplayer..."
 	@cd $(SRC_DIR) && go run *.go
 
 # Test build (just compile, don't save)
